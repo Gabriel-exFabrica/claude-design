@@ -41,6 +41,7 @@
       var gate = document.getElementById('__pw_gate');
       if (gate) gate.remove();
       try { sessionStorage.setItem('__pw_ok_craft_system', '1'); } catch (e) {}
+      document.dispatchEvent(new Event('__pw_unlocked'));
     }
     if (sessionStorage.getItem('__pw_ok_craft_system') === '1') {
       document.addEventListener('DOMContentLoaded', unlock);
@@ -65,7 +66,7 @@
 
   <script>
     
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('__pw_unlocked', async function() {
   const loading = document.getElementById('__bundler_loading');
   function setStatus(msg) { if (loading) loading.textContent = msg; }
 
