@@ -19,6 +19,47 @@
   </noscript>
 </head>
 <body>
+  <div id="__pw_gate" style="position:fixed;inset:0;z-index:2147483647;background:#0b0b12;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">
+    <form id="__pw_form" style="background:#fff;border-radius:12px;padding:32px;max-width:320px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,0.3);text-align:center;">
+      <div style="font-weight:700;font-size:16px;margin-bottom:6px;color:#111;">Craft System — accès protégé</div>
+      <div style="font-size:13px;color:#666;margin-bottom:16px;">Maquette client, mot de passe requis.</div>
+      <input id="__pw_input" type="password" autocomplete="off" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:10px;" placeholder="Mot de passe">
+      <div id="__pw_error" style="display:none;color:#c0392b;font-size:12px;margin-bottom:10px;">Mot de passe incorrect.</div>
+      <button type="submit" style="width:100%;padding:10px 12px;border:none;border-radius:8px;background:#3200E6;color:#fff;font-size:14px;font-weight:600;cursor:pointer;">Entrer</button>
+    </form>
+  </div>
+  <script>
+  (function() {
+    var HASH = '1eed0b490d3265a9b96fc2c633657667a751e6cf3426d05c2396c5688c8b3d72';
+    function sha256Hex(str) {
+      var enc = new TextEncoder().encode(str);
+      return crypto.subtle.digest('SHA-256', enc).then(function(buf) {
+        return Array.prototype.map.call(new Uint8Array(buf), function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+      });
+    }
+    function unlock() {
+      var gate = document.getElementById('__pw_gate');
+      if (gate) gate.remove();
+      try { sessionStorage.setItem('__pw_ok_craft_system', '1'); } catch (e) {}
+    }
+    if (sessionStorage.getItem('__pw_ok_craft_system') === '1') {
+      document.addEventListener('DOMContentLoaded', unlock);
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('__pw_form');
+      var input = document.getElementById('__pw_input');
+      var error = document.getElementById('__pw_error');
+      if (!form) return;
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        sha256Hex(input.value).then(function(hex) {
+          if (hex === HASH) { unlock(); }
+          else { error.style.display = 'block'; input.value = ''; input.focus(); }
+        });
+      });
+    });
+  })();
+  </script>
   <div id="__bundler_thumbnail"><svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="800" fill="#3200E6"></rect><text x="600" y="470" text-anchor="middle" font-family="monospace" font-weight="700" font-size="220" fill="#fff">CS</text><rect x="420" y="520" width="360" height="16" fill="#EB692D"></rect></svg></div>
   <div id="__bundler_loading">Unpacking...</div>
 
